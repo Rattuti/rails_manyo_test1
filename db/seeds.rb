@@ -5,3 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+5.times do |n|
+    Task.create(tittle: "task_title_#{n}",content: "task_content_#{n}", :utc)
+end
