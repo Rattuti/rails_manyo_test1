@@ -7,5 +7,5 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 5.times do |n|
-    Task.create(tittle: "task_title_#{n}",content: "task_content_#{n}", :utc)
+    Task.create(tittle: "task_tittle_#{n}",content: "task_content_#{n}", :utc)
 end
