@@ -1,12 +1,5 @@
 <h1>New Task Page</h1>
 
-<%= form_for(@task) do |f| %>
-Tittle<br>
-<%= f.text_field :tittle %><br>
-Content<br>
-<%= f.text_area :content %>
-<% end %>
-
 <%= render 'form', task: @task , id:"create-task"%>
 
 <%= link_to 'Back', tasks_path ,id:"back"%>
