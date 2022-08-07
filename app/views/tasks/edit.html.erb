@@ -1,12 +1,5 @@
 <h1>Editing Task Page</h1>
 
-<%= form_for(@task) do |f| %>
-Tittle<br>
-<%= f.text_field :tittle %><br>
-Content<br>
-<%= f.text_area :content %>
-<% end %>
-
 <%= render 'form', task: @task ,id:"update-user"%>
 
 <%= link_to 'Back', tasks_path ,id:"back"%>
