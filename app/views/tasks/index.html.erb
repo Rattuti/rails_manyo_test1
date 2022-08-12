@@ -1,12 +1,12 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Tasks Index Page</h1>
+<h1><%= t(".tittle")%></h1>
 
 <table>
   <thead>
     <tr>
-      <th>Title</th>
-      <th>Content</th>
+      <th><%= t("attributes.tittle") %></th>
+      <th><%= t("attributes.content") %></th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -16,10 +16,10 @@
       <tr>
         <td><%= task.tittle %></td>
         <td><%= task.content %></td>
-        <td><%= task.created_at %></td>
-        <td><%= link_to 'Show', task %></td>
-        <td><%= link_to 'Edit', edit_task_path(task) %></td>
-        <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= task.created_at.strftime("%Y/%m/%d %H:%M") %></td>
+        <td><%= link_to t("tasks.index.show"), task %></td>
+        <td><%= link_to t("attributes.edit"), edit_task_path(task) %></td>
+        <td><%= link_to t("tasks.index.destroy"), task, method: :delete, data: { confirm: t("attributes.destroy_confirm") } %></td>
       </tr>
     <% end %>
   </tbody>

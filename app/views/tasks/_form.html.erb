@@ -22,6 +22,10 @@
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <% if task.persisted? %>
+      <%= form.submit id:"update-task"%>
+    <% else %>
+      <%= form.submit id:"create-task"%>
+    <% end %>
   </div>
 <% end %>
