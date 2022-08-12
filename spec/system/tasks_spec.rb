@@ -38,7 +38,11 @@ RSpec.describe 'タスク管理機能', type: :system do
         fill_in "Content", with: "test"
         click_button "Create Task"
 
-        expect(page).to have_content "Show"
+        task = Task.last
+        visit task_path(task.id)
+        expect(page).to have_content "Show Task Page"
+        expect(page).to have_content task.tittle
+        expect(page).to have_content task.content
        end
      end
   end
