@@ -4,6 +4,13 @@ RSpec.describe 'タスク管理機能', type: :system do
   describe '登録機能' do
     context 'タスクを登録した場合' do
       it '登録したタスクが表示される' do
+        visit new_task_path
+        fill_in "Tittle", with: "test"
+        fill_in "Content", with: "test"
+        click_button "Create Task"
+
+        visit new_task_path
+        #expect(page).to have_content "success"        
       end
     end
   end
@@ -26,6 +33,12 @@ RSpec.describe 'タスク管理機能', type: :system do
   describe '詳細表示機能' do
      context '任意のタスク詳細画面に遷移した場合' do
        it 'そのタスクの内容が表示される' do
+        visit new_task_path
+        fill_in "Tittle", with: "test"
+        fill_in "Content", with: "test"
+        click_button "Create Task"
+
+        expect(page).to have_content "Show"
        end
      end
   end
