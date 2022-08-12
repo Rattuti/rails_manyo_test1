@@ -30,7 +30,7 @@ RSpec.describe 'タスク管理機能', type: :system do
     end
   end
 
-  describe '詳細表示機能' do
+  describe '詳細表示機能1' do
      context '任意のタスク詳細画面に遷移した場合' do
        it 'そのタスクの内容が表示される' do
         visit new_task_path
