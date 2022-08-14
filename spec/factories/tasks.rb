@@ -9,8 +9,8 @@ FactoryBot.define do
     # 作成するテストデータの名前を「second_task」とします
     # 「second_task」のように存在しないクラス名をつける場合、`class`オプションを使ってどのクラスのテストデータを作成するかを明示する必要がります
     factory :second_task, class: Task do
-      tittle { 'メール送信' }
-      content { '顧客へ営業のメールを送る。' }
+      tittle { 'test2' }
+      content { 'test2' }
     end
 
     factory :third_task, class: Task do

@@ -26,7 +26,7 @@ RSpec.describe 'タスク管理機能', type: :system do
       it '作成済みのタスク一覧が作成日時の降順で表示される' do
         task_list = all('tbody tr')
         expect(task_list[0]).to have_content 'test3'
-        expect(task_list[1]).to have_content '書類作成'
+        expect(task_list[1]).to have_content 'test2'
         expect(task_list[2]).to have_content 'test1'
       end
     end
@@ -39,6 +39,9 @@ RSpec.describe 'タスク管理機能', type: :system do
   end
 
   describe '詳細表示機能' do
+    let!(:first_task) { FactoryBot.create(:first_task) }
+    let!(:second_task) { FactoryBot.create(:second_task) }
+
      context '任意のタスク詳細画面に遷移した場合' do
        it 'そのタスクの内容が表示される' do
        task = Task.last
