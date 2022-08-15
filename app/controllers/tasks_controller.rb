@@ -25,10 +25,10 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
-        format.html { redirect_to @task, notice: t("notice.create") }
-        format.json { render :show, status: :created, location: @task }
+        format.html { redirect_to tasks_path, notice: t("notice.create") }
+        format.json { head :no_content }
       else
-        format.html { render :new }
+        format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @task.errors, status: :unprocessable_entity }
       end
     end
@@ -38,8 +38,8 @@ class TasksController < ApplicationController
   def update
     respond_to do |format|
       if @task.update(task_params)
-        format.html { redirect_to @task, notice: t("notice.update") }
-        format.json { render :show, status: :ok, location: @task }
+        format.html { redirect_to tasks_path, notice: t("notice.update") }
+        format.json { head :no_content }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @task.errors, status: :unprocessable_entity }
@@ -64,6 +64,10 @@ class TasksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def task_params
-      params.require(:task).permit(:tittle, :content)
+      params.require(:task).permit(:tittle, :content, :deadline_on, :priority, :status)
     end
-end
+
+    def task_search_params
+      params.fetch(:search, {}).permit(:status, :tittle)
+    end
+  end

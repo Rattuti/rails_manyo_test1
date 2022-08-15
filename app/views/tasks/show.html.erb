@@ -1,8 +1,12 @@
-<h1>Show Task Page</h1>
+<p id="notice"><%= notice %></p>
+<h1><%= t(".tittle") %></h1>
 
-<p>Title: <%= @task.tittle %></p>
-<p>Content: <%= @task.content %></p>
-<p>Created_at: <%= @task.created_at %></p>
+<p><strong><%= t("attributes.tittle") %>:</strong> <%= @task.tittle %></p>
+<p><strong><%= t("attributes.content") %>:</strong> <%= @task.content %></p>
+<p><strong><%= t("attributes.created_at") %>:</strong> <%= @task.created_at %></p>
+<p><strong><%= t("attributes.created_at") %>:</strong> <%= @task.deadline_on %></p>
+<p><strong><%= t("attributes.priority") %>:</strong> <%= @task.priority %></p>
+<p><strong><%= t("attributes.status") %>:</strong> <%= @task.status %></p>
 
-<%= link_to 'Edit', edit_task_path(@task) %> |
-<%= link_to 'Back', tasks_path ,id:"back"%>
+<%= link_to t("attributes.edit"), edit_task_path(@task) %> |
+<%= link_to t("attributes.back"), tasks_path ,id:"back"%>

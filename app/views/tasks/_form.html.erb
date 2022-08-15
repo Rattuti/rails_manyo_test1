@@ -21,6 +21,21 @@
     <%= form.text_area :content %>
   </div>
 
+  <div class="field">
+    <%= form.label :deadline_on %>
+    <%= form.date_field :deadline_on %>
+  </div>
+
+  <div class="field">
+    <%= form.label :priority %>
+    <%= form.select :priority, Task.priorities.keys.to_a, { include_blank: "" } %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.select :status,Task.priorities.keys.to_a, { include_blank: "" }  %>
+  </div>
+
   <div class="actions">
     <% if task.persisted? %>
       <%= form.submit id:"update-task"%>
