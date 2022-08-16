@@ -17,6 +17,7 @@ ja:
       previous: 前へ
       next: 次へ
       last: 最後のページ
+      truncate: ""
   tasks:
     index:
       tittle: タスク一覧ページ
