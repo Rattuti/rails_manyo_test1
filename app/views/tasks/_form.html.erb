@@ -33,14 +33,14 @@
 
   <div class="field">
     <%= form.label :status %>
-    <%= form.select :status,Task.priorities.keys.to_a, { include_blank: "" }  %>
+    <%= form.select :status,Task.statuses.keys.to_a, { include_blank: "" }  %>
   </div>
 
   <div class="actions">
     <% if task.persisted? %>
-      <%= form.submit id:"update-task"%>
+      <%= form.submit id:"update-task" %>
     <% else %>
-      <%= form.submit id:"create-task"%>
+      <%= form.submit id:"create-task" %>
     <% end %>
   </div>
 <% end %>
