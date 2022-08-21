@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe 'タスク管理機能', type: :system do
-    before do
-        driven_by(:selenium_chrome_headless)
-    end
+    #before do
+        #driven_by(:selenium_chrome_headless)
+    #end
     describe '登録機能' do
     context 'タスクを登録した場合' do
       it '登録したタスクが表示される' do
@@ -51,16 +51,18 @@ RSpec.describe 'タスク管理機能', type: :system do
       end
     end
     describe '検索機能' do
-      
+      let!(:first_task) { FactoryBot.create(:first_task) }
+      let!(:second_task) { FactoryBot.create(:second_task) }
+      let!(:third_task) { FactoryBot.create(:third_task) }
       before do
         visit tasks_path
       end
 
       context 'タイトルであいまい検索をした場合' do
         it "検索ワードを含むタスクのみ表示される" do
-          fill_in "タイトル", with: 'task'
+          fill_in "タイトル", with: 'test1'
           click_button '検索'
-          expect(page).to have_content("test")
+          expect(page).to have_content 'test1'
           expect(page).not_to have_content("メール")
         end
       end
@@ -68,16 +70,17 @@ RSpec.describe 'タスク管理機能', type: :system do
         it "検索したステータスに一致するタスクのみ表示される" do
           select '未着手', from: 'ステータス'
           click_button '検索'
-          #expect(page).to have_content("task")
+          expect(page).to have_content("test2")
           expect(page).not_to have_content("メール")
         end
       end
       context 'タイトルとステータスで検索した場合' do
         it "検索ワードをタイトルに含み、かつステータスに一致するタスクのみ表示される" do
-          fill_in 'search[tittle]', with: 'task'
-          select '着手中', from: 'ステータス'
+          fill_in 'タイトル', with: 'test1'
+          select '未着手', from: 'ステータス'
           click_button '検索'
-          expect(page).to have_content("task")
+          #binding.irb
+          expect(page).to have_content("test1")
           expect(page).not_to have_content("メール")
         end
       end
