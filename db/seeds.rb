@@ -7,11 +7,13 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 50.times do |n|
-    Task.create(
+    date = Date.today + n + 1
+    Task.create!(
         tittle: "task_tittle_#{n + 1}",
         content: "task_content_#{n + 1}",
         deadline_on: "2022-08-#{n + 1}",
         priority: rand(3),
-        status: rand(3)
+        status: rand(3),
+        user_id: @user.id
     )
 end

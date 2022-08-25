@@ -1,15 +1,17 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %i[ show edit update destroy ]
+  before_action :only_own_tasks, only: [:show, :edit]
+  skip_before_action :logout_required
 
   # GET /tasks or /tasks.json
   def index
     if params[:sort_deadline_on]
-      @tasks = Task.sort_deadline_on.ordered_by_created_at.page(params[:page]).per(10)
+      @tasks = current_user.task.sort_deadline_on.ordered_by_created_at.page(params[:page]).per(10)
     elsif params[:sort_priority]
-      @tasks = Task.sort_priority.ordered_by_created_at.page(params[:page]).per(10)
+      @tasks = current_user.task.sort_priority.ordered_by_created_at.page(params[:page]).per(10)
     else
       @search_params = task_search_params
-      @tasks = Task.search_index(@search_params).ordered_by_created_at.page(params[:page]).per(10)
+      @tasks = current_user.tasks.search_index(@search_params).ordered_by_created_at.page(params[:page]).per(10)
     end
   end
 
@@ -29,7 +31,7 @@ class TasksController < ApplicationController
   # POST /tasks or /tasks.json
   def create
     @task = Task.new(task_params)
-
+    @task.user_id = current_user.id
     respond_to do |format|
       if @task.save
         format.html { redirect_to tasks_path, notice: t("notice.create") }
@@ -77,4 +79,8 @@ class TasksController < ApplicationController
     def task_search_params
       params.fetch(:search, {}).permit(:status, :tittle)
     end
+
+    def only_own_tasks
+      redirect_to tasks_path, flash: {notice: "本人以外アクセスできません"} unless @task.user_id == current_user.id
+    end    
   end
