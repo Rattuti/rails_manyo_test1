@@ -1,8 +1,29 @@
 FactoryBot.define do
   factory :user do
-    name { "MyString" }
-    email { "MyString" }
-    password_digest { "MyString" }
+    name { "Iizuka" }
+    email { "iizuka@gmail.com" }
+    password { "0123456" }
     admin { false }
+  end
+
+  factory :second_user, class: User do
+    name { "yamada" }
+    email { "yamada@gmail.com" }
+    password { "0123456" }
+    admin { false }
+  end
+
+  factory :third_user, class: User do
+    name { "wada" }
+    email { "wada@gmail.com" }
+    password { "0123456" }
+    admin { false }
+  end
+
+  factory :fourth_user, class: User do
+    name { "Akira" }
+    email { "akira@gmail.com" }
+    password { "0123456" }
+    admin { true }
   end
 end
