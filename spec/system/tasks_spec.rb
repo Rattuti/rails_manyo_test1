@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
   let!(:user) { FactoryBot.create(:user) }
   before do
+    driven_by(:selenium_chrome_headless)
     visit new_session_path
     fill_in "session[email]", with:"wada@gmail.com"
     fill_in "session[password]", with:"0123456"
@@ -78,20 +79,21 @@ RSpec.describe 'タスク管理機能', type: :system do
       describe 'ソート機能' do
         context '「終了期限でソートする」というリンクをクリックした場合' do
           it "終了期限昇順に並び替えられたタスク一覧が表示される" do
-            click_link '終了期限'
+            wait.until {click_link '終了期限'}
             task_list = page.all('tbody tr')
-            expect(task_list[0]).to have_content "task3"
-            expect(task_list[1]).to have_content "task4"
-            expect(task_list[2]).to have_content "task5"
+            #binding.irb
+            expect(task_list[0]).to have_content "未着手"
+            expect(task_list[1]).to have_content "完了"
+            expect(task_list[2]).to have_content "着手中"
           end
         end
         context '「優先度でソートする」というリンクをクリックした場合' do
           it "優先度の高い順に並び替えられたタスク一覧が表示される" do
             click_link '優先度'
             task_list = page.all('tbody tr')
-            expect(task_list[0]).to have_content "task5"
-            expect(task_list[1]).to have_content "task3"
-            expect(task_list[2]).to have_content "task4"
+            expect(task_list[0]).to have_content "高"
+            expect(task_list[1]).to have_content "中"
+            expect(task_list[2]).to have_content "低"
           end
         end
       end
@@ -100,7 +102,7 @@ RSpec.describe 'タスク管理機能', type: :system do
           it "検索ワードを含むタスクのみ表示される" do
             fill_in 'search[tittle]', with: 'test4'
             click_button 'commit'
-            binding.irb
+            #binding.irb
             expect(page).to have_content("task4")
             expect(page).not_to have_content("task3")
             expect(page).not_to have_content("task5")
