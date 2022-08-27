@@ -1,0 +1,45 @@
+<h1><%= t(".title") %></h1>
+
+<p>
+  <strong><%= t(".name") %>:</strong>
+  <%= @user.name %>
+</p>
+
+<p>
+  <strong><%= t(".email") %>:</strong>
+  <%= @user.email %>
+</p>
+
+<p>
+  <strong><%= t(".admin") %>:</strong>
+  <%= @user.admin == true ? "あり" : "なし" %>
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th><%= t "attributes.tittle" %></th>
+      <th><%= t "attributes.content" %></th>
+      <th><%= t "attributes.created_at" %></th>
+      <th><%= t "attributes.deadline_on" %></th>
+      <th><%= t "attributes.priority" %></th>
+      <th><%= t "attributes.status" %></th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @user.tasks.each do |task| %>
+      <tr>
+        <td><%= task.tittle %></td>
+        <td><%= task.content %></td>
+        <td><%= task.created_at %></td>
+        <td><%= task.deadline_on %></td>
+        <td><%= task.priority %></td>
+        <td><%= task.status %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to t("attributes.back"), :back, id:"back"%>
+</div>

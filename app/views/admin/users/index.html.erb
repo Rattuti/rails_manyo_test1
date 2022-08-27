@@ -1,0 +1,38 @@
+<h1><%= t(".title") %></h1>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this task from being saved:</h2>
+
+      <ul>
+        <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+<table>
+  <thead>
+    <tr>
+      <th><%= t "attributes.name" %></th>
+      <th><%= t "attributes.email" %></th>
+      <th><%= t "attributes.admin" %></th>
+      <th><%= t "attributes.tasks" %></th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.admin == true ? "あり" : "なし" %></td>
+        <td><%= user.tasks.count %></td>
+        <td><%= link_to t("attributes.show"), admin_user_path(user.id), class: "show-user" %></td>
+        <td><%= link_to t('attributes.edit'), edit_admin_user_path(user.id), class: "edit-user" %></td>
+        <td><%= link_to t('attributes.delete'), admin_user_path(user.id), class: "destroy-user", method: :delete, data: { confirm: t("attributes.destroy_confirm") } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @users %>

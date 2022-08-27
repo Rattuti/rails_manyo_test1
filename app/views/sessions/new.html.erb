@@ -1,0 +1,12 @@
+<h1><%= t('.tittle')%></h1>
+<%= form_with(scope: :session, url: sessions_path, local: true) do |f| %>
+<div class='field'>
+  <%= f.label t('attributes.email') %>
+  <%= f.email_field :email %>
+</div>
+<div class='field'>
+  <%= f.label t('attributes.password') %>
+  <%= f.password_field :password %>
+</div>
+  <%= f.submit "login", id:'create-session' %>
+<% end %>

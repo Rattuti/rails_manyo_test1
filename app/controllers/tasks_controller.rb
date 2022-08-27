@@ -1,9 +1,18 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %i[ show edit update destroy ]
+  before_action :only_own_tasks, only: [:show, :edit]
+  skip_before_action :logout_required
 
   # GET /tasks or /tasks.json
   def index
-    @tasks = Task.all
+    if params[:sort_deadline_on]
+      @tasks = current_user.tasks.sort_deadline_on.ordered_by_created_at.page(params[:page]).per(10)
+    elsif params[:sort_priority]
+      @tasks = current_user.tasks.sort_priority.ordered_by_created_at.page(params[:page]).per(10)
+    else
+      @search_params = task_search_params
+      @tasks = current_user.tasks.search_index(@search_params).ordered_by_created_at.page(params[:page]).per(10)
+    end
   end
 
   # GET /tasks/1 or /tasks/1.json
@@ -22,13 +31,13 @@ class TasksController < ApplicationController
   # POST /tasks or /tasks.json
   def create
     @task = Task.new(task_params)
-
+    @task.user_id = current_user.id
     respond_to do |format|
       if @task.save
-        format.html { redirect_to @task, notice: "Task was successfully created." }
-        format.json { render :show, status: :created, location: @task }
+        format.html { redirect_to tasks_path, notice: t("notice.create") }
+        format.json { head :no_content }
       else
-        format.html { render :new }
+        format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @task.errors, status: :unprocessable_entity }
       end
     end
@@ -38,8 +47,8 @@ class TasksController < ApplicationController
   def update
     respond_to do |format|
       if @task.update(task_params)
-        format.html { redirect_to @task, notice: "Task was successfully updated." }
-        format.json { render :show, status: :ok, location: @task }
+        format.html { redirect_to tasks_path, notice: t("notice.update") }
+        format.json { head :no_content }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @task.errors, status: :unprocessable_entity }
@@ -51,7 +60,7 @@ class TasksController < ApplicationController
   def destroy
     @task.destroy
     respond_to do |format|
-      format.html { redirect_to tasks_url, notice: "Task was successfully destroyed." }
+      format.html { redirect_to tasks_url, notice: t("notice.destroy") }
       format.json { head :no_content }
     end
   end
@@ -64,6 +73,14 @@ class TasksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def task_params
-      params.require(:task).permit(:tittle, :content)
+      params.require(:task).permit(:tittle, :content, :deadline_on, :priority, :status)
     end
-end
+
+    def task_search_params
+      params.fetch(:search, {}).permit(:status, :tittle)
+    end
+
+    def only_own_tasks
+      redirect_to tasks_path, flash: {notice: "本人以外アクセスできません"} unless @task.user_id == current_user.id
+    end    
+  end

@@ -1,0 +1,10 @@
+<h1><%= t('.tittle') %></h1>
+
+<p><%= t('.name') %>: <%= @user.name %>
+<p><%= t('.email') %>: <%= @user.email %>
+
+<div class="link-footer">
+  <%= link_to "編集", edit_user_path(current_user.id), id: "edit-user" %>
+  |
+<%= link_to t("attributes.back"), :back, id:"back"%>
+</div>
