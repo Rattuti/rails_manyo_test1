@@ -79,12 +79,12 @@ RSpec.describe 'タスク管理機能', type: :system do
       describe 'ソート機能' do
         context '「終了期限でソートする」というリンクをクリックした場合' do
           it "終了期限昇順に並び替えられたタスク一覧が表示される" do
-            wait.until {click_link '終了期限'}
+            click_link '終了期限'
             task_list = page.all('tbody tr')
             #binding.irb
-            expect(task_list[0]).to have_content "未着手"
-            expect(task_list[1]).to have_content "完了"
-            expect(task_list[2]).to have_content "着手中"
+            expect(task_list[0]).to have_content "2025-02-16"
+            expect(task_list[1]).to have_content "2025-02-19"
+            expect(task_list[2]).to have_content "2025-02-20"
           end
         end
         context '「優先度でソートする」というリンクをクリックした場合' do
