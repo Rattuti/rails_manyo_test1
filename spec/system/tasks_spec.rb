@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
   let!(:user) { FactoryBot.create(:user) }
   before do
-    driven_by(:selenium_chrome_headless)
+    #driven_by(:selenium_chrome_headless)
     visit new_session_path
     fill_in "session[email]", with:"wada@gmail.com"
     fill_in "session[password]", with:"0123456"
@@ -79,18 +79,29 @@ RSpec.describe 'タスク管理機能', type: :system do
       describe 'ソート機能' do
         context '「終了期限でソートする」というリンクをクリックした場合' do
           it "終了期限昇順に並び替えられたタスク一覧が表示される" do
+            visit tasks_path
             click_link '終了期限'
+            binding.irb
+            #first_table = all('tbody tr')[0]
+            #second_table = all('tbody tr')[1]
+            #third_table = all('tbody tr')[2]
             task_list = page.all('tbody tr')
-            #binding.irb
+
+          #end
             expect(task_list[0]).to have_content "2025-02-16"
             expect(task_list[1]).to have_content "2025-02-19"
             expect(task_list[2]).to have_content "2025-02-20"
+            #expect(first_table).to have_content "2025-02-16"
+            #expect(second_table).to have_content "2025-02-19"
+            #expect(third_table).to have_content "2025-02-20"
+            #binding.irb
           end
         end
         context '「優先度でソートする」というリンクをクリックした場合' do
           it "優先度の高い順に並び替えられたタスク一覧が表示される" do
             click_link '優先度'
             task_list = page.all('tbody tr')
+            binding.irb
             expect(task_list[0]).to have_content "高"
             expect(task_list[1]).to have_content "中"
             expect(task_list[2]).to have_content "低"
