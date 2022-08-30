@@ -50,8 +50,8 @@ RSpec.describe 'タスクモデル機能', type: :model do
     context 'scopeメソッドでステータス検索をした場合' do
       it "ステータスに完全一致するタスクが絞り込まれる" do
         expect(Task.search_index(status: "未着手")).to include(first_task)
-        expect(Task.search_index(status: "着手中")).not_to include(second_task)
-        expect(Task.search_index(status: "未着手")).not_to include(third_task)
+        expect(Task.search_index(status: "完了")).to include(second_task)
+        expect(Task.search_index(status: "未着手")).to include(third_task)
         expect(Task.search_index(status: "完了").count).to eq 1
         # toとnot_toのマッチャを使って検索されたものとされなかったものの両方を確認する
         # 検索されたテストデータの数を確認する
