@@ -4,6 +4,7 @@ class User < ApplicationRecord
     before_save { email.downcase! }
     before_update { email.downcase! }
     has_many :tasks, dependent: :destroy
+    has_many :labels, dependent: :destroy
     has_secure_password
     validates :password, length: { minimum: 6 }
     validates :name, presence: true

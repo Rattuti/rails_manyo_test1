@@ -20,10 +20,10 @@ class LabelsController < ApplicationController
     def create
             @label = Label.new(label_params)
             @label.user_id = current_user.id
-            resopond_to do |format|
-            if @labels.save
+            respond_to do |format|
+            if @label.save
                 format.html { redirect_to labels_path, notice: "ラベルを登録しました"}
-                format.json { render :show, status: :created, location: @labe }
+                format.json { render :show, status: :created, location: @label }
             else
                 format.html { render :new, status: :unprocessable_entity}
                 format.json { render json: @label.errors, status: :unprocessable_entity }
@@ -32,13 +32,14 @@ class LabelsController < ApplicationController
     end
 
     def update
-        respond_to dp |format|
-        if @label.update(label_params)
-            format.html { redirect_to label_path, notice: "ラベルを更新しました"}
-            format.json { render :show, status: :ok, location: @label }
-        else
-            format.html { render :edit, status: :unprocessable_entity}
-            format.json { render json: @label.errors, status: :unprocessable_entity }
+        respond_to do |format|
+            if @label.update(label_params)
+                format.html { redirect_to label_path, notice: "ラベルを更新しました"}
+                format.json { render :show, status: :ok, location: @label }
+            else
+                format.html { render :edit, status: :unprocessable_entity}
+                format.json { render json: @label.errors, status: :unprocessable_entity }
+            end
         end
     end
 
