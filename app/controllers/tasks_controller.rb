@@ -22,10 +22,12 @@ class TasksController < ApplicationController
   # GET /tasks/new
   def new
     @task = Task.new
+    @user = current_user
   end
 
   # GET /tasks/1/edit
   def edit
+    @user = current_user
   end
 
   # POST /tasks or /tasks.json

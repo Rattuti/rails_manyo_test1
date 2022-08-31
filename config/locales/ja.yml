@@ -8,6 +8,8 @@ ja:
     new_user: アカウント登録
     admin_users_index: ユーザ一覧
     admin_new_user: ユーザを登録する
+    labels_index: ラベル一覧
+    new_label: ラベルを登録する
   activerecord:
     models:
       task: タスク   
