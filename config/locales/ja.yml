@@ -79,6 +79,7 @@ ja:
     admin: 管理者権限
     tasks: 登録タスク数
     destroy_confirm: 本当に削除してもよろしいですか？
+    label: ラベル
   notice:
     create: タスクを登録しました
     update: タスクを更新しました

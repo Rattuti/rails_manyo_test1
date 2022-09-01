@@ -14,7 +14,10 @@
 
   <div>
     <%= f.label :label, t("attributes.label") %>
-    <%= f.select("label_id", Label.where(user_id: @user.id).pluck(:name, :id), { include_blank: ""}) %>
+    <% Label.all.each do |label| %>
+      <%= f.check_box :label_ids, { multiple: true, include_hidden: false }, label[:id] %>
+    <%= label.name %>
+    <% end %>
   </div>
 
     <%= f.submit "検索",id: "search_task"%>
