@@ -12,28 +12,28 @@
 
     <div class="field">
         <%= form.label :name %>
-        <%= form.text_field :name %>
+        <%= form.text_field :name, class: "form-control" %>
     </div>
 
     <div class="field">
         <%= form.label :email %>
-        <%= form.email_field :email %>
+        <%= form.email_field :email, class: "form-control" %>
     </div>
 
     <div class="field">
         <%= form.label :password %>
-        <%= form.password_field :password %>
+        <%= form.password_field :password, class: "form-control" %>
     </div>
 
     <div class="field">
         <%= form.label :password_confirmation %>
-        <%= form.password_field :password_confirmation %>
+        <%= form.password_field :password_confirmation, class: "form-control" %>
     </div>
 
     <% if @user.persisted? %>
-      <%= form.submit id: "update-user" %>
+      <%= form.submit id: "update-user", class: "btn btn-primary"  %>
     <% else %>
-      <%= form.submit id: "create-user" %>
+      <%= form.submit id: "create-user", class: "btn btn-primary"  %>
     <% end %>
 
 <% end %>

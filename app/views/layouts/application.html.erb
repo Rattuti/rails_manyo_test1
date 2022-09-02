@@ -10,102 +10,41 @@
   </head>
 
   <body>
-  <nav class="navbar navbar-expand-lg navbar-light">
-  <div >
-  <% if logged_in? && current_user.admin? %>
-  <ul class="nav justify-content-end">
-    <li class="nav-item p-1">
-      <a class="nav-link active" href="#">
-        <%= link_to t("application.admin_users_index"), admin_users_path, id: "users-index" %>
-      </a>
-    </li>  
-    <li class="nav-item p-1">
-      <a class="nav-link" href="#">
-        <%= link_to t("application.admin_new_user"), new_admin_user_path, id: "add-user" %>
-      </a>
-    </li>  
-    <li class="nav-item p-1">
-      <a class="nav-link" href="#">
-        <%= link_to t("application.tasks_index"), tasks_path %>
-      </a>
-    </li>
-    <li class="nav-item p-1">
-      <a class="nav-link" href="#">
-        <%= link_to t("application.new_task"), new_task_path %>
-      </a>
-    </li>
-    <li class="nav-item p-1">
-      <a class="nav-link" href="#">
-        <%= link_to t("application.labels_index"), labels_path %>
-      </a>
-    </li>
-    <li class="nav-item p-1">
-      <a class="nav-link" href="#">
-        <%= link_to t("application.new_label"), new_label_path %>
-      </a>
-    </li>
-    <li class="nav-item p-1">
-      <a class="nav-link" href="#">
-        <%= link_to t("application.user_show"), user_path(current_user.id), id: "my-account" %>
-      </a>
-    </li>
-    <li class="nav-item p-1">
-      <a class="nav-link" href="#">
-        <%= link_to t("application.logout"), session_path(current_user.id), method: :delete, id: "sign-out" %>
-      </a>
-    </li>
-  </ul>
-  <% elsif logged_in? %>
-  <ul class="nav justify-content-end">
-    <li class="nav-item active p-1">
-      <a class="nav-link" href="#">
-        <%= link_to t("application.tasks_index"), tasks_path, id: "tasks-index" %>
-      </a>
-    </li>
-    <li class="nav-item p-1">
-      <a class="nav-link" href="#">
-        <%= link_to t("application.new_task"), new_task_path, id: "new-task" %>
-      </a>
-    </li>
-    <li class="nav-item p-1">
-      <a class="nav-link" href="#">
-        <%= link_to t("application.labels_index"), labels_path %>
-      </a>
-    </li>
-    <li class="nav-item p-1">
-      <a class="nav-link" href="#">
-        <%= link_to t("application.new_label"), new_label_path %>
-      </a>
-    </li>
-    <li class="nav-item p-1">
-      <a class="nav-link" href="#">
-        <%= link_to t("application.user_show"), user_path(current_user.id), id: "my-account" %>
-      </a>
-    </li>
-    <li class="nav-item p-1">
-      <a class="nav-link" href="#">
-        <%= link_to t("application.logout"), session_path(current_user.id), method: :delete, id: "sign-out" %>
-      </a>
-    </li>
-  </ul>
-  <% else %>
-  <ul class="nav justify-content-end">
-    <li class="nav-item active">
-      <a class="nav-link" href="#">
-        <%= link_to t("application.new_user"), new_user_path, id:"sign-up" %>
-      </a>
-    </li>
-    <li class="nav-item p-1">
-      <a class="nav-link" href="#">
-        <%= link_to t("application.new_session"), new_session_path, id:"sign-in" %>
-      </a>
-    </li>
-  </ul>
-  <% end %>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <h1 class="nabvar-brand small">Task App</h1>
+        <div class="collapse navbar-collapse justify-content-end">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0 small">
+            <% if logged_in? && current_user.admin? %>
+              <li class="nav-item"><%= link_to t("application.admin_users_index"), admin_users_path, id: "users-index", class: "nav-link active" %></li>
+              <li class="nav-item"><%= link_to t("application.admin_new_user"), new_admin_user_path, id: "add-user", class: "nav-link active" %></li>
+              <li class="nav-item"><%= link_to t("application.tasks_index"), tasks_path, class: "nav-link active" %></li>
+              <li class="nav-item"><%= link_to t("application.new_task"), new_task_path, class: "nav-link active" %></li>
+              <li class="nav-item"><%= link_to t("application.labels_index"), labels_path, id: "labels-index", class: "nav-link active" %></li>
+              <li class="nav-item"><%= link_to t("application.new_label"), new_label_path, id: "new-label", class: "nav-link active" %></li>
+              <li class="nav-item"><%= link_to t("application.user_show"), user_path(current_user.id), id: "my-account", class: "nav-link active" %></li>
+              <li class="nav-item"><%= link_to t("application.logout"), session_path(current_user.id), method: :delete, id: "sign-out", class: "nav-link active" %></li>
+            <% elsif logged_in? %>
+              <li class="nav-item"><%= link_to t("application.tasks_index"), tasks_path, id: "tasks-index", class: "nav-link active" %></li>
+              <li class="nav-item"><%= link_to t("application.new_task"), new_task_path, id: "new-task", class: "nav-link active" %></li>
+              <li class="nav-item"><%= link_to t("application.labels_index"), labels_path, id: "labels-index", class: "nav-link active" %></li>
+              <li class="nav-item"><%= link_to t("application.new_label"), new_label_path, id: "new-label", class: "nav-link active" %></li>
+              <li class="nav-item"><%= link_to t("application.user_show"), user_path(current_user.id), id: "my-account", class: "nav-link active" %></li>
+              <li class="nav-item"><%= link_to t("application.logout"), session_path(current_user.id), method: :delete, id: "sign-out", class: "nav-link acitive" %></li>
+            <% else %>
+              <li class="nav-item"><%= link_to t("application.new_user"), new_user_path, id: "sign-up", class: "nav-link active" %></li>
+              <li class="nav-item"><%= link_to t("application.new_session"), new_session_path, id: "sign-in", class: "nav-link active" %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </nav>
 
-    <% flash.each do |key, value| %><%= content_tag(:div, value, class: "#{key}") %>
+    <% flash.each do |key, value| %>
+      <%= content_tag(:div, value, class: "#{key}") %>
     <% end %>
 
-    <%= yield %>
+      <%= yield %>
+
   </body>
 </html>

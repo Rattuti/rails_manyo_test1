@@ -1,5 +1,9 @@
-<h1><%= t(".tittle") %></h1>
+<div class="col-7 mx-auto">
+    <h1><%= t(".tittle") %></h1>
 
-<%= render 'form', user: @user %>
+    <%= render 'form', user: @user %>
 
-<%= link_to '戻る', user_path, id: "back" %>
+    <div class="text-right mt-3">
+        <%= link_to '戻る', user_path, id: "back" %>
+    </div>
+</div>
