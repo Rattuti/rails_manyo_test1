@@ -61,6 +61,13 @@ ja:
     new:
       tittle: ログインページ
       submit: ログイン
+  labels:
+    new:
+      tittle: ラベル登録ページ
+    index:
+      tittle: ラベル一覧ページ
+    edit:
+      tittle: ラベル編集ページ
   attributes:
     tittle:  タイトル
     content: 内容

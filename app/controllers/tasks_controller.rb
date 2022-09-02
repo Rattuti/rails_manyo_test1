@@ -13,6 +13,11 @@ class TasksController < ApplicationController
       @search_params = task_search_params
       @tasks = current_user.tasks.search_index(@search_params).ordered_by_created_at.page(params[:page]).per(10)
     end
+
+    if params[:label_id].present?
+      @tasks = @tasks.joins(:labels).where(labels: { id: params[:label_id] }) .page(params[:page]).per(10)
+    end
+    
   end
 
   # GET /tasks/1 or /tasks/1.json

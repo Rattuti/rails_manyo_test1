@@ -10,7 +10,7 @@
       </ul>
     </div>
   <% end %>
-<table>
+<table class="table mt-5">
   <thead>
     <tr>
       <th><%= t "attributes.name" %></th>
@@ -28,9 +28,9 @@
         <td><%= user.email %></td>
         <td><%= user.admin == true ? "あり" : "なし" %></td>
         <td><%= user.tasks.count %></td>
-        <td><%= link_to t("attributes.show"), admin_user_path(user.id), class: "show-user" %></td>
-        <td><%= link_to t('attributes.edit'), edit_admin_user_path(user.id), class: "edit-user" %></td>
-        <td><%= link_to t('attributes.delete'), admin_user_path(user.id), class: "destroy-user", method: :delete, data: { confirm: t("attributes.destroy_confirm") } %></td>
+        <td><%= link_to t("attributes.show"), admin_user_path(user.id), class: "show-user btn btn-primary" %></td>
+        <td><%= link_to t('attributes.edit'), edit_admin_user_path(user.id), class: "edit-user btn btn-primary" %></td>
+        <td><%= link_to t('attributes.delete'), admin_user_path(user.id), class: "destroy-user btn btn-danger", method: :delete, data: { confirm: t("attributes.destroy_confirm") } %></td>
       </tr>
     <% end %>
   </tbody>

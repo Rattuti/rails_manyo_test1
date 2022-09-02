@@ -15,7 +15,7 @@
 
   <div>
     <%= f.label :label, t("attributes.label") %>
-    <%= f.select (@labels_id, Label.where(user_id: @user.id).pluck(:name, :id), { include_blank: "" })%>    
+    <%= f.select("label_id", Label.pluck(:name, :id), { include_blank: "" }) %>
   </div>
 
     <%= f.submit "検索",id: "search_task"%>
