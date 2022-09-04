@@ -7,7 +7,7 @@ RSpec.describe 'タスク管理機能', type: :system do
     fill_in "session[email]", with:"wada@gmail.com"
     fill_in "session[password]", with:"0123456"
     #binding.irb
-    click_on "login"
+    click_on "ログイン"
   end
   #before do
         #driven_by(:selenium_chrome_headless)
