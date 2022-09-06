@@ -6,8 +6,8 @@ RSpec.describe 'タスク管理機能', type: :system do
     visit new_session_path
     fill_in "session[email]", with:"wada@gmail.com"
     fill_in "session[password]", with:"0123456"
-    #binding.irb
-    click_on "ログイン"
+    binding.irb
+    click_button "commit"
   end
   #before do
         #driven_by(:selenium_chrome_headless)
@@ -43,7 +43,7 @@ RSpec.describe 'タスク管理機能', type: :system do
       visit new_session_path
       fill_in "session[email]", with:"wada@gmail.com"
       fill_in "session[password]", with:"0123456"
-      click_button "login"
+      click_button "commit"
 
       visit tasks_path
     end
@@ -151,4 +151,30 @@ RSpec.describe 'タスク管理機能', type: :system do
         end
       end
     end
+
+    describe '検索機能' do
+      before do
+        task = FactoryBot.create(:task) 
+        task2 = FactoryBot.create(:fourth_task, user_id: task.user.id)
+        task3 = FactoryBot.create(:fifth_task, user_id: task.user.id)
+        label = FactoryBot.create(:label, user_id: task.user.id)
+        labelling = FactoryBot.create(:labelling, task: task, label: label)
+        visit new_session_path
+        fill_in "session[email]", with: "thomas@gmail.com"
+        fill_in "session[password]", with: "123456"
+        click_button "commit"
+        visit tasks_path
+      end
+  
+      context 'ラベルで検索をした場合' do
+        it "そのラベルの付いたタスクがすべて表示される" do
+          # toとnot_toのマッチャを使って表示されるものとされないものの両方を確認する
+          select 'label_1', from: 'search[label_id]'
+          click_button '検索'
+          expect(page).to have_content "書類作成"
+          expect(page).not_to have_content "メール送信"
+        end
+      end
+    end
+    
   end

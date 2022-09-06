@@ -46,12 +46,12 @@ RSpec.describe 'タスクモデル機能', type: :model do
         expect(Task.search_index(tittle: 'test1').count).to eq 1
       end
     end
-    #binding.irb
+    binding.irb
     context 'scopeメソッドでステータス検索をした場合' do
       it "ステータスに完全一致するタスクが絞り込まれる" do
         expect(Task.search_index(status: "未着手")).to include(first_task)
         expect(Task.search_index(status: "着手中")).not_to include(second_task)
-        expect(Task.search_index(status: "未着手")).not_to include(third_task)
+        expect(Task.search_index(status: "完了")).not_to include(third_task)
         expect(Task.search_index(status: "完了").count).to eq 1
         # toとnot_toのマッチャを使って検索されたものとされなかったものの両方を確認する
         # 検索されたテストデータの数を確認する
@@ -63,8 +63,8 @@ RSpec.describe 'タスクモデル機能', type: :model do
         # 検索されたテストデータの数を確認する
         expect(Task.search_index(tittle: 'test1', status: "未着手")).to include(first_task)
         expect(Task.search_index(tittle: 'test1', status: "着手中")).not_to include(second_task)
-        expect(Task.search_index(tittle: 'test1', status: "未着手")).not_to include(third_task)
-        expect(Task.search_index(tittle: 'test1', status: "未着手").count).to eq 1
+        expect(Task.search_index(tittle: 'test1', status: "完了")).not_to include(third_task)
+        expect(Task.search_index(tittle: 'test1', status: '未着手').count).to eq 1
       end
     end
   end

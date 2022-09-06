@@ -1,26 +1,32 @@
 <h1><%= t(".tittle")%></h1>
 
 <%= form_with url: tasks_path, method: :get, class: "container", scope: :search, local:true do |f| %>
-<div class="form-row form-inline justify-content-between">
-  <div class="status_search form-group col-3 flex-column">
-    <%= f.label :status, t("attributes.status")%>
-    <%= f.select :status, Task.statuses.keys.to_a, { include_blank: "" }, class: "form-control" %>
-  </div>
+  <div class="form-row form-inline justify-content-between">
+    <div class="status_search form-group col-3 flex-column">
+      <%= f.label :status, t("attributes.status")%>
+      <%= f.select :status, Task.statuses.keys.to_a, { include_blank: "" }, class: "form-control" %>
+    </div>
 
-  <div class="form-group col-4 flex-column">
-    <%= f.label :tittle, t("attributes.tittle")%>
-    <%= f.text_field :tittle, class: "form-control" %>
-  </div>
+    <div class="form-group col-4 flex-column">
+      <%= f.label :tittle, t("attributes.tittle")%>
+      <%= f.text_field :tittle, class: "form-control" %>
+    </div>
+    <br>
+    <div class="mt-2 justify-content-end d-flex">
+      <%= f.submit "検索",id: "search_task", class: "btn btn-primary"%>
+    </div>
+  <% end %>
 
-  <div class="form-group col-4 flex-column">
-    <%= f.label :label, t("attributes.label") %>
-    <%= f.select("label_id", Label.pluck(:name, :id), { include_blank: "" }, class: "form-control")  %>
-  </div>
-
-  <div class="mt-2 justify-content-end d-flex">
-    <%= f.submit "検索",id: "search_task", class: "btn btn-primary"%>
-  </div>
-<% end %>
+  <%= form_with url: tasks_path, method: :get, local: true do |form|%>
+    <div class="form-group col-4 flex-column">
+      <%= form.label :label, t("attributes.label") %>
+      <%= form.select("label_id", Label.pluck(:name, :id), { include_blank: "" }, class: "form-control")  %>
+    </div>
+    <div class="mt-2 justify-content-end d-flex">    
+      <%= form.submit 'ラベル検索', class: "btn btn-primary"%>
+    </div>
+  <% end %>
+</div>
 
 <table class="table mt-5">
   <thead>
