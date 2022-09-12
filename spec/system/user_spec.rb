@@ -5,10 +5,10 @@ RSpec.describe 'ユーザ管理機能', type: :system do
     context 'ユーザを登録した場合' do
       it 'タスク一覧画面に遷移する' do
         visit new_user_path
-        fill_in "user[name]", with: "hatakeyama"
-        fill_in "user[email]", with: "hayakeyama@gmail.com"
-        fill_in "user[password]", with: "hatakeyama"
-        fill_in "user[password_confirmation]", with: "hatakeyama"
+        fill_in "user[name]", with: "iizuka"
+        fill_in "user[email]", with: "iizuka@gmail.com"
+        fill_in "user[password]", with: "0123456"
+        fill_in "user[password_confirmation]", with: "0123456"
         click_button "commit"
         expect(page).to have_content("ユーザを登録しました")
       end
@@ -26,10 +26,18 @@ RSpec.describe 'ユーザ管理機能', type: :system do
     let!(:second_user) { FactoryBot.create(:second_user) }
     context '登録済みのユーザでログインした場合' do
       before do
-        visit new_session_path
-        fill_in "session[email]", with: "thomas@gmail.com"
-        fill_in "session[password]", with: "123456"
+        visit new_user_path
+        fill_in "user[name]", with: "Iizuka"
+        fill_in "user[email]", with: "iizuka@gmail.com"
+        fill_in "user[password]", with: "0123456"
+        fill_in "user[password_confirmation]", with: "0123456"
         click_button "commit"
+        visit new_session_path
+        #binding.irb
+        fill_in "session[email]", with: "iizuka@gmail.com"
+        fill_in "session[password]", with: "0123456"
+        click_button "commit"
+
       end
 
       it 'タスク一覧画面に遷移し、「ログインしました」というメッセージが表示される' do
@@ -40,7 +48,7 @@ RSpec.describe 'ユーザ管理機能', type: :system do
         expect(page).to have_content "アカウント詳細ページ"
       end
       it '他人の詳細画面にアクセスすると、タスク一覧画面に遷移する' do
-        user = User.find_by(name: "Mike")
+        user = User.find_by(name: "Yamada")
         visit user_path(user.id)
         expect(page).to have_content "アクセス権限がありません"
       end
@@ -57,8 +65,8 @@ RSpec.describe 'ユーザ管理機能', type: :system do
     context '管理者がログインした場合' do
       before do
         visit new_session_path
-        fill_in "session[email]", with: "taylor@gmail.com"
-        fill_in "session[password]", with: "123456"
+        fill_in "session[email]", with: "akira@gmail.com"
+        fill_in "session[password]", with: "0123456"
         click_button "commit"
       end
       it 'ユーザ一覧画面にアクセスできる' do
@@ -67,10 +75,10 @@ RSpec.describe 'ユーザ管理機能', type: :system do
       end
       it '管理者を登録できる' do
         visit new_admin_user_path
-        fill_in "user[name]", with: "Chris"
-        fill_in "user[email]", with: "chris@gmail.com"
-        fill_in "user[password]", with: "123456"
-        fill_in "user[password_confirmation]", with: "123456"
+        fill_in "user[name]", with: "Iizuka"
+        fill_in "user[email]", with: "iizuka@gmail.com"
+        fill_in "user[password]", with: "1234567"
+        fill_in "user[password_confirmation]", with: "1234567"
         check "user[admin]"
         click_button "commit"
         expect(page).to have_content "ユーザを登録しました"
@@ -81,11 +89,14 @@ RSpec.describe 'ユーザ管理機能', type: :system do
         expect(page).to have_content "ユーザ詳細ページ"
       end
       it 'ユーザ編集画面から、自分以外のユーザを編集できる' do
+        #click_link "ユーザ一覧"
+
         click_link "アカウント詳細"
         click_link "編集"
-        fill_in "user[name]", with: "Christpher"
-        fill_in "user[password]", with: "123456"
-        fill_in "user[password_confirmation]", with: "123456"
+        fill_in "user[name]", with: "Iizuka"
+        fill_in "user[email]", with: "iizuka@gmail.com"
+        fill_in "user[password]", with: "1234567"
+        fill_in "user[password_confirmation]", with: "1234567"
         click_button "commit"
         expect(page).to have_content "アカウント詳細ページ"
       end
@@ -99,8 +110,8 @@ RSpec.describe 'ユーザ管理機能', type: :system do
     context '一般ユーザがユーザ一覧画面にアクセスした場合' do
       it 'タスク一覧画面に遷移し、「管理者以外アクセスできません」というエラーメッセージが表示される' do
         visit new_session_path
-        fill_in "session[email]", with: "nancy@gmail.com"
-        fill_in "session[password]", with: "123456"
+        fill_in "session[email]", with: "wada@gmail.com"
+        fill_in "session[password]", with: "0123456"
         click_button "commit"
         visit admin_users_path
         expect(page).to have_content "管理者以外はアクセスできません"

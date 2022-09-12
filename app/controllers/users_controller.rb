@@ -31,7 +31,7 @@ class UsersController < ApplicationController
     end
 
     def update
-        @user = user.find(params[:id])
+        @user = current_user
         if @user.update(user_params)
             redirect_to user_path(params[:id]), flash: {notice: 'アカウントを更新しました'}
         else

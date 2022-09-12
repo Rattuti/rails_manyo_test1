@@ -7,14 +7,14 @@ FactoryBot.define do
   end
 
   factory :second_user, class: User do
-    name { "yamada" }
+    name { "Yamada" }
     email { "yamada@gmail.com" }
     password { "0123456" }
     admin { false }
   end
 
   factory :third_user, class: User do
-    name { "wada" }
+    name { "Wada" }
     email { "wada@gmail.com" }
     password { "0123456" }
     admin { false }
