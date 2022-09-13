@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
   let!(:user) { FactoryBot.create(:user) }
   before do
-    #driven_by(:selenium_chrome_headless)
+    driven_by(:selenium_chrome_headless)
     visit new_session_path
     fill_in "session[email]", with:"wada@gmail.com"
     fill_in "session[password]", with:"0123456"
@@ -160,47 +160,6 @@ RSpec.describe 'タスク管理機能', type: :system do
           expect(page).to have_content "タスク詳細ページ"
           expect(page).to have_content task.tittle
           expect(page).to have_content task.content
-        end
-      end
-    end
-
-    describe '検索機能' do
-      before do
-      visit new_user_path
-        fill_in "名前", with: "qweee"
-        fill_in "メールアドレス", with: "qwe12@gmail.com"
-        fill_in "パスワード", with: "0123456"
-        fill_in "パスワード(確認)", with: "0123456"
-        click_button "登録する"
-
-        visit new_label_path
-        fill_in "label[name]", with:"test_a"
-        click_button '登録する'
-
-        visit new_task_path
-          #click_button 'タスクを登録する'
-          fill_in "タイトル", with: "test_1"
-          fill_in "内容", with: "test_01"
-          fill_in "終了期限", with: "002025-05-25"
-          select "中", from: "優先度"
-          select "未着手", from: "ステータス"
-          check "task_label_ids_1"
-          binding.irb
-          click_button "登録する"
-      end  
-      context 'ラベルで検索をした場合' do
-        it "そのラベルの付いたタスクがすべて表示される" do
-          # toとnot_toのマッチャを使って表示されるものとされないものの両方を確認する
-          visit new_label_path
-          fill_in "label[name]", with:"test_a"
-          click_button '登録する'
-          visit tasks_path
-          select 'test_a', from: 'ラベル'
-          binding.irb
-          click_button 'ラベル検索'
-          task_list = all('tbody tr')
-          expect(task_list[0]).to have_content("test_a")
-          expect(page).not_to have_content "メール送信"
         end
       end
     end

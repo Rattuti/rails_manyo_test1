@@ -18,7 +18,7 @@
   <% end %>
 
   <%= form_with url: tasks_path, method: :get, local: true do |form|%>
-    <div class="form-group col-4 flex-column">
+    <div class="form-group flex-column">
       <%= form.label :label, t("attributes.label") %>
       <%= form.select("label_id", Label.pluck(:name, :id), { include_blank: "" }, class: "form-control")  %>
     </div>

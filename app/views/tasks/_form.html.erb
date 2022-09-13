@@ -36,13 +36,9 @@
     <%= form.select :status,Task.statuses.keys.to_a, { include_blank: "" }, class: "form-control"  %>
   </div>
 
-  <div class="field">
-    <%= form.label :label %>
-    <% Label.all.each do |label| %>
-      <%= form.check_box :label_ids, { multiple: true, include_hidden: false }, label[:id], class: "form-check-label" %>
-      <%= label.name %>
-    <% end %>
-  </div>
+  <div class="field"><label>ラベル
+    <%= form.collection_check_boxes(:label_ids, Label.all, :id, :name) %>
+  </label></div>
 
   <div class="actions text-right">
     <% if task.persisted? %>
